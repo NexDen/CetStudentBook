@@ -35,7 +35,7 @@ namespace CetStudentBook.Controllers
                 var studentExits = context.Students.FirstOrDefault(s => s.Email == student.Email);
                 if (studentExits != null)
                 {
-                    ModelState.AddModelError("Email", "This email is already exists");
+                    ModelState.AddModelError("Email", "This email already exists");
                     return View(student);
                 }
 
@@ -73,7 +73,7 @@ namespace CetStudentBook.Controllers
                 var studentExits = context.Students.FirstOrDefault(s => s.Email == student.Email && s.Id != student.Id);
                 if (studentExits != null)
                 {
-                    ModelState.AddModelError("Email", "This email is already exists");
+                    ModelState.AddModelError("Email", "This email already exists");
                     return View(student);
                 }
                 context.Students.Update(student);
