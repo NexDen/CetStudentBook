@@ -25,7 +25,8 @@ public class BookController : Controller
         book.PublishDate = tz; // aşırı garip bir postgresql timestamptz hatasını çözmek için
         _context.Books.Add(book);
         _context.SaveChangesAsync();
-        return View(book);
+        return RedirectToAction(nameof(Index));
+
     }
 
     [HttpPost]
@@ -35,7 +36,8 @@ public class BookController : Controller
         book.PublishDate = tz; // aşırı garip bir postgresql timestamptz hatasını çözmek için
         _context.Books.Update(book);
         _context.SaveChangesAsync();
-        return View(book);
+        return RedirectToAction(nameof(Index));
+
     }
     
     public async Task<IActionResult> Edit(int? id)
@@ -50,14 +52,19 @@ public class BookController : Controller
         {
             return NotFound();
         }
-        
+
         return View(book);
+
     }
 
     [HttpDelete]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        throw new NotImplementedException();
+        var book = await _context.Books.FindAsync(id);
+        if (book != null) _context.Books.Remove(book);
+        
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Details(int id)
