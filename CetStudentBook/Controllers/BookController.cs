@@ -57,7 +57,7 @@ public class BookController : Controller
 
     }
 
-    [HttpDelete]
+    [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
         var book = await _context.Books.FindAsync(id);
