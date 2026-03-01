@@ -34,6 +34,10 @@ public class BookController : Controller
     {
         var tz = book.PublishDate.ToUniversalTime();
         book.PublishDate = tz; // aşırı garip bir postgresql timestamptz hatasını çözmek için
+        if (!ModelState.IsValid)
+        {
+            return View(book);
+        }
         _context.Books.Update(book);
         _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
