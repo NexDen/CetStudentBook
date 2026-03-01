@@ -31,12 +31,27 @@ public class BookController : Controller
     [HttpPost]
     public IActionResult Edit(Book book)
     {
-        throw new NotImplementedException();
+        var tz = book.PublishDate.ToUniversalTime();
+        book.PublishDate = tz; // aşırı garip bir postgresql timestamptz hatasını çözmek için
+        _context.Books.Update(book);
+        _context.SaveChangesAsync();
+        return View(book);
     }
     
-    public IActionResult Edit()
+    public async Task<IActionResult> Edit(int? id)
     {
-        return View();
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var book = await _context.Books.FindAsync(id);
+        if (book == null)
+        {
+            return NotFound();
+        }
+        
+        return View(book);
     }
 
     [HttpDelete]
