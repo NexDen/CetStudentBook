@@ -1,11 +1,6 @@
 ﻿@model IEnumerable<CetStudentBook.Models.Book>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
 
-<h1>Students</h1>
+<h1>Books</h1>
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New</a>   
     </p>
@@ -51,6 +46,9 @@
                     }
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Edit</a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
         }
